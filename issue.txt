@@ -1,0 +1,18 @@
+好，列出来：
+
+**Bug 清单**
+
+**#1 Term ID 命名规则错误**
+Canvas 返回 `"Spring 2025-2026"`，`_canvas_term_to_id()` 取的是第一个年份 `2025` → `25SP`，应该取后一个年份 `2026` → `26SP`。
+暂时绕过方案：parse 不按课程代码查，直接按 course_id 查。
+状态：待修
+
+**#2 syllabus_ref 填充有问题**
+大部分课程的 `syllabus_ref` 是 NULL，只有 HISTSCI 202 有值。Canvas API 拉到的 `syllabus_body` 可能为空，导致没有写入文件也没有填 `syllabus_ref`。需要排查 `sync_courses.py` 里 syllabus 下载逻辑。
+状态：待修
+
+**#3 Windows 路径处理错误**
+`file:///C:\...` 去掉前缀后变成 `/C:\...`，多了一个斜杠导致文件找不到。
+状态：已有修复方案，未同步到本地文件
+
+4：cs524 optimization和cs544的canvas权限被锁了，这个应用大概率不能搞很多东西

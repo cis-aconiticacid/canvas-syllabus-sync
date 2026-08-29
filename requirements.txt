@@ -1,0 +1,4 @@
+canvasapi
+python-dotenv
+anthropic
+openai
